@@ -4,16 +4,16 @@
   sudo: yes
 
 - name: ngrok | Check if Ngrok Archive is already downloaded
-  local_action: stat path=/opt/ngrok/ngrok_2.0.19_linux_amd64.zip
+  local_action: stat path=/opt/ngrok/ngrok-stable-linux-amd64.zip 
   register: ngrok_archive_exists
 
 - name: ngrok | Download Ngrok Source
-  get_url: url=https://dl.ngrok.com/ngrok_2.0.19_linux_amd64.zip dest=/opt/ngrok/
+  shell: curl -o /opt/ngrok/ngrok-stable-linux-amd64.zip https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
   when: not ngrok_archive_exists.stat.exists
   sudo: yes
 
 - name: ngrok | Unzip Ngrok Install
-  unarchive: copy=no src=/opt/ngrok/ngrok_2.0.19_linux_amd64.zip dest=/opt/ngrok/
+  unarchive: copy=no src=/opt/ngrok/ngrok-stable-linux-amd64.zip  dest=/opt/ngrok/
   sudo: yes
 
 - name: ngrok | Add Ngrok Directory to environment variables
